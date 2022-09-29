@@ -22,7 +22,7 @@ function createMap(
   var baseMaps = {
     "Street Map": streetmap,
   };
-  // Create an overlayMaps object to hold the bikeStations layer.
+
   var overlayMaps = {
     "Magnitude < 2.5": mag1Layer,
     "Magnitude < 5.4 > 2.5": mag2Layer,
@@ -51,6 +51,39 @@ function createMap(
       collapsed: false,
     })
     .addTo(map);
+  var legend = L.control({
+    position: "bottomright",
+  });
+  // add the prpporties for the legend
+  legend.onAdd = function () {
+    // create a div for the legend
+    var div = L.DomUtil.create("div", "info legend");
+    console.log(div);
+
+    var intervals = [-10, 10, 30, 50, 70, 90];
+    var colors = [
+      "green",
+      "YellowGreen",
+      "Yellow",
+      "orange",
+      "darkOrange",
+      "red",
+    ];
+
+    for (var i = 0; i < intervals.length; i++) {
+      div.innerHTML +=
+        "<i style='background: " +
+        colors[i] +
+        "'></i>" +
+        intervals[i] +
+        " to " +
+        (intervals[i + 1] ? +intervals[i + 1] + "<br>" : " +"); // br to make them vertical
+    }
+
+    return div;
+  };
+  // add the legend to the map
+  legend.addTo(map);
 }
 
 // Create the createMarkers function.
@@ -69,34 +102,74 @@ function createMarkers(data) {
   for (var i = 0; i < features.length; i++) {
     //console.log(features[i].properties.mag);
     //create a marker, and bind a popup.
-    var earthquakes = L.marker([
-      features[i].geometry.coordinates[1],
-      features[i].geometry.coordinates[0],
-    ])
+    //creating circles based on the magnitude
+    //coloing the circles based on the depth
+    var markerRadius = features[i].properties.mag * 15000;
+    var markerColor;
+
+    if (
+      features[i].geometry.coordinates[2] >= -10 &&
+      features[i].geometry.coordinates[2] < 10
+    )
+      markerColor = "green";
+    else if (
+      features[i].geometry.coordinates[2] >= 10 &&
+      features[i].geometry.coordinates[2] < 30
+    )
+      markerColor = "YellowGreen";
+    else if (
+      features[i].geometry.coordinates[2] >= 30 &&
+      features[i].geometry.coordinates[2] < 50
+    )
+      markerColor = "yellow";
+    else if (
+      features[i].geometry.coordinates[2] >= 50 &&
+      features[i].geometry.coordinates[2] < 70
+    )
+      markerColor = "orange";
+    else if (
+      features[i].geometry.coordinates[2] >= 70 &&
+      features[i].geometry.coordinates[2] < 90
+    )
+      markerColor = "darkOrange";
+    else markerColor = "red";
+    var earthquakes = L.circle(
+      [
+        features[i].geometry.coordinates[1],
+        features[i].geometry.coordinates[0],
+      ],
+      {
+        fillOPacity: 0.3,
+        color: markerColor,
+        fillerColor: markerColor,
+        radius: markerRadius,
+        weight: 1,
+      }
+    )
       .bindPopup(`<h2>Place: ${features[i].properties.place}</h2><hr><b>Coordinates: </b> 
     ${features[i].geometry.coordinates[1]} ${features[i].geometry.coordinates[0]}<hr><b>Depth: </b> ${features[i].geometry.coordinates[2]} <hr><b>Magnitudes: ${features[i].properties.mag}`);
     // Add the marker to the earthquakesMarkers array.
     earthquakesMarkers.push(earthquakes);
 
-    if (features[i].properties.mag < 2.5) mag1.push(earthquakes);
+    if (features[i].properties.mag <= 2.5) mag1.push(earthquakes);
     else if (
       features[i].properties.mag > 2.5 &&
-      features[i].properties.mag < 5.4
+      features[i].properties.mag <= 5.4
     )
       mag2.push(earthquakes);
     else if (
       features[i].properties.mag > 5.4 &&
-      features[i].properties.mag < 6.0
+      features[i].properties.mag <= 6.0
     )
       mag3.push(earthquakes);
     else if (
       features[i].properties.mag > 6.0 &&
-      features[i].properties.mag < 6.9
+      features[i].properties.mag <= 6.9
     )
       mag4.push(earthquakes);
     else if (
       features[i].properties.mag > 6.9 &&
-      features[i].properties.mag < 7.9
+      features[i].properties.mag <= 7.9
     )
       mag5.push(earthquakes);
     else mag6.push(earthquakes);
