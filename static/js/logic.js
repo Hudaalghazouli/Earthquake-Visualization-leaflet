@@ -92,13 +92,13 @@ function createMarkers(data) {
   var features = data.features;
   // Initialize an array to hold the markers.
   var earthquakesMarkers = [];
-  var mag1 = []; // over 40
-  var mag2 = []; // 25-40
-  var mag3 = [];
-  var mag4 = [];
-  var mag5 = [];
-  var mag6 = [];
-  // Loop through the stations array.
+  var mag1 = []; // <2.5
+  var mag2 = []; // 2.5 to 5.4
+  var mag3 = []; // 5.4 to 6
+  var mag4 = []; // 6.1 to 6.9
+  var mag5 = []; // 7 to 7.9
+  var mag6 = []; // > 7.9
+
   for (var i = 0; i < features.length; i++) {
     //console.log(features[i].properties.mag);
     //create a marker, and bind a popup.
