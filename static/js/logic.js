@@ -57,6 +57,7 @@ function createMap(
   // add the prpporties for the legend
   legend.onAdd = function () {
     // create a div for the legend
+
     var div = L.DomUtil.create("div", "info legend");
     console.log(div);
 
