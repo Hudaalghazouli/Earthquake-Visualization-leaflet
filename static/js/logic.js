@@ -1,4 +1,5 @@
 var AmericaCoords = [39.7392, -104.9903];
+
 var mapZoomLevel = 5;
 
 // Create the createMap function.
