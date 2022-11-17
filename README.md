@@ -1,4 +1,4 @@
-# Unit 15 Homework: Visualizing Data with Leaflet:
+# Unit 15 Homework: Visualizing Data with Leaflet
 
 ## Background
 
