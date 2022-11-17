@@ -32,4 +32,3 @@ The USGS is interested in building a new set of tools that will allow them to vi
    - Included popups to provide additional information about the earthquake.
 
    - Created a legend that provide context for the map data.
-   - 
