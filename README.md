@@ -8,7 +8,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 
 ## What we accomplished:
 :
-:
+
 ### Created the Earthquake Visualization
 
 ![2-BasicMap](Images/basicmap.png)
