@@ -15,7 +15,7 @@ The USGS is interested in building a new set of tools that will allow them to vi
 1. Got the dataset by doing the folowing:
 
    - Use d3 library to get some live data from (http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page and choose a dataset for one week to visualize.
-j
+
 2. Imported and visualize the data by doing the following:
 
    - Using Leaflet, to create a map that plots all the earthquakes from the dataset based on the longitude and latitude.
